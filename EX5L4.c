@@ -1,10 +1,9 @@
 #include<stdlib.h>
 #include<stdio.h> 
 #include <stdbool.h> 
-#include<math.h>
 int main()
 {
- int valor, i, j, quad ;
+ int valor, i, j ;
  
  printf("Insira um valor inteiro, positivo e nao nulo ");
  scanf("%d", &valor);
@@ -13,11 +12,10 @@ int main()
  if(valor%2==0){
   valor--;
  }
- quad = sqrt(valor);
- 
+
  for (i=valor; i>=3; i=i-2){
    bool primo = true; //variavel de verdadeiro/falso
-   for (j=quad;j>=3 && primo; j=j-1){ //loop encadeado (for dentro do for)=> nested loops
+   for (j=i-1;j>=3 && primo; j=j-1){
      if(i%j==0){
        primo=false;         
      }  
