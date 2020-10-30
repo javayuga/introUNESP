@@ -1,35 +1,36 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 int main()
 {
-    int dado_1, dado_2, placar_1, placar_2;
+    int dado_1, dado_2, placar_1=0, placar_2=0;
 	
-	// placar_1 zerado
-	// placar_2 zerado
+	srand((unsigned)time(NULL));
 	
-	// enquanto (while) placar_1 não for 11 OU placar_2 não for 11, repetir:
-	
-		// gera dado_1
-		// gera dado_2
-		
-		// se dado_1 > dado_2
-			// placar_1 incrementado
-		// se dado_1 < dado_2
-			// placa2_2 incrementado
-			
-		// ser for igual (nem preciso checar)
-			// ninguém ganha ponto
-	
-	// se placa_1 for 11
-		// escrever que o jogador 1 ganhou
-	// ou então
-		// escrever que o jogador 2 ganhou
-
-    
-    ale = rand() % 6+1 ; 
-    
-    
+	while(placar_1 < 11 && placar_2 < 11) {
+         dado_1 = (rand() % 6)+1 ;
+         dado_2 = (rand() % 6)+1 ;
+         printf("Dado 1= %d e Dado 2= %d.\n", dado_1, dado_2);
+         
+         if (dado_1 > dado_2) {
+                   placar_1 ++;
+                   printf("O jogador 1 ganhou 1 ponto. Seu placar eh: %d :) \n\n", placar_1);
+                   }
+         else if (dado_1 < dado_2) {
+                   placar_2 ++;
+                   printf("O jogador 2 ganhou 1 ponto. Seu placar eh: %d :) \n\n", placar_2);
+                   }			
+         else {
+              printf("Ninguem ganhou pontos :( \n\n");
+              }		
+   }
+	if (placar_1 == 11) {
+          printf("\n\nO jogador 1 ganhou!!! \n");     
+          }
+    else {
+          printf("\n\nO jogador 2 ganhou!!! \n"); 
+          } 
     system("PAUSE");
     return 0;
 }
