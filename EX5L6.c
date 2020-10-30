@@ -10,12 +10,17 @@ int main()
  if(valor%2==0){
   valor--;
  }
- 
- for(i=valor;i>=3;i=i-2){
-   if(valor%i==0){
-     
-                                           
+
+ for (i=valor; i>=3; i=i-2){
+   bool primo = true
+   // for j=i-1; j>=3 && primo; j=j-1
+     // confere se i%j == 0
+		// primo == false
+    // se primo, imprime i	
+
  }
+
+ 
  printf("2,1\n");
 
  
