@@ -31,7 +31,7 @@ int main()
   
   printf("Digite o valor da compra: R$");
   scanf("%f", &compra);
-  printf("Digito o valor pago: R$");
+  printf("Digite o valor pago: R$");
   scanf("%f", &pago); 
   
   troco = pago-compra;
