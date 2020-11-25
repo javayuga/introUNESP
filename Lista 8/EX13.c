@@ -1,29 +1,27 @@
 #include<stdlib.h>
-#include<stdio.h> 
+#include<stdio.h>
 
-int calcular_soma_naturais(int n)
+ // 1 1 2 3 5 8 13 21 34 55 
+ 
+int calcular_fibonacci(int n)
 {
-  if (n==0){
-    return 0;
+  if (n==1 || n==2){
+    return 1;
   }
-  return n+calcular_soma_naturais(n-1);
+  return calcular_fibonacci(n-1) + calcular_fibonacci(n-2);   
 }
-
+ 
 int main()
 {
-    
- int numero, soma;
- 
- soma = 0; 
- 
- printf("Digite um numero: ");
- scanf("%d", &numero);
- 
- soma=calcular_soma_naturais(numero);
- 
- printf("A soma dos numeros eh: %d.\n", soma);
-
-
+  int n, termo;
+  
+  printf("Insira o termo desejado: ");
+  scanf("%d", &n);
+  
+  termo=calcular_fibonacci(n);
+  
+  printf("O valor neste termo eh %d .\n",  termo); 
+     
   system("PAUSE");
   return 0;   
     
