@@ -8,7 +8,6 @@ typedef struct Series{
 	int* G;
 };
 
-
 struct Series calcula_Series(int k){
 	struct Series s;
 	s.termo = k;

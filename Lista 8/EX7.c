@@ -1,18 +1,18 @@
 #include<stdlib.h>
 #include<stdio.h> 
-#include <stdbool.h>
+#include <stdbool.h> //usar o tipo booleano -> true or false
 
 typedef struct Data{
 	int ano;
 	int mes;
 	int dia;
 	
-	bool erro;
-	char *msg;
+	bool erro;  // struct linhas/colunas
+	char *msg;  // ponteiro (*) -> indica p/ começo do  vetor (matriz de 1 dimensão-> sequencia de valores)
 };
 
 bool checa_bissexto(int ano){
-	return (ano%400==0 || (ano%4==0 && ano%100!=0));
+	return (ano%400==0 || (ano%4==0 && ano%100!=0)); 
 }
 
 struct Data incrementa_dia(struct Data ent){

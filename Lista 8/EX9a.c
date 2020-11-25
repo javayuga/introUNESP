@@ -2,18 +2,18 @@
 #include<stdio.h> 
 
 typedef struct Series{
-	int termo;
+	int termo; // quantos termos temos? (n de elementos)
 
-	int* F;
+	int* F;  // serie: vetor (* -> indica que é vetor)
 	int* G;
-};
+};  
 
 
 struct Series calcula_Series(int k){
 	struct Series s;
-	s.termo = k;
+	s.termo = k; // k= n termos
 	
-	s.F = malloc(k*sizeof(int));
+	s.F = malloc(k*sizeof(int)); // k= quantas posições o vetor tem
 	s.G = malloc(k*sizeof(int));
 	
 	s.F[0]=2;
@@ -41,8 +41,8 @@ int main()
   printf("Calcular as series de recorrencia ate qual termo? ");
   scanf("%d", &k);
   
-  if (k<1){
-	  printf("Termo k deve ser maior ou igual a 1 ");
+  if (k<3){
+	  printf("Termo k deve ser maior ou igual a 3 ");
 		system("PAUSE");
 		return 0;   
   	

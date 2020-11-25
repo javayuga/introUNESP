@@ -12,7 +12,7 @@ bool determinar_primo(int num){
   return resultado == 2;
 }
 
-int* monta_array_primos(int sup, int est){
+int* monta_array_primos(int sup, int est){   // sup= superior est=estimativa de primos no intervalo
 	int i, pos;
 
 	int* primos = malloc(est*sizeof(int));
@@ -58,10 +58,10 @@ int main()
 	bool sum;
 
 	printf("montando array de primos...\n");
-	arr_prim = monta_array_primos(sup, est);
+	arr_prim = monta_array_primos(sup, est); //construiu vetor de primos (1ro com 3ro, 2do com 3ro.....)
 	
 	printf("verificando conjectura de Goldbach...\n");
-	for (num=inf; num<=sup; num=num+2){
+	for (num=inf; num<=sup; num=num+2){ //pares
 		sum = false;
 		for (i=0; (i<=est && !sum); i++){
 			for (j=i+1; (j<=est && !sum); j++){
