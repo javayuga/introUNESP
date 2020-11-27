@@ -63,7 +63,7 @@ void imprime_vetor(float* vetor, int n){
 
 	printf("[");	
 	for(i=0;i<n;i++){
-		printf("%.4f", vetor[i]);
+		printf("%f", vetor[i]);
 		if (i<n-1)
 			printf(", ");
 	}
@@ -83,7 +83,7 @@ void imprime_freq(float* freq[2], int n){
 			break;
 		}
 		
-		printf("(%.4f,%.0f)", freq[0][i], freq[1][i]);
+		printf("(%f,%.0f)", freq[0][i], freq[1][i]);
 		if (i<n-1)
 			if (freq[0][i+1]!=NULO)
 				printf(", ");
@@ -131,7 +131,7 @@ void entrar_vetor(float* vetor, int n, float inf, float sup){
 
 int main()
 {
-	int i, n;
+	int n;
 	float* vetor;
 	float* freq[2];
 	
