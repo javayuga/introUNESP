@@ -2,68 +2,26 @@
 #include<stdio.h> 
 
 const float NULO = -999;  // indica que um valor ainda não foi inicializado
-const float SUP = 1;  		// indica o limite superior dos valores
-const float INF = -1;  		// indica o limite inferior dos valores
 const int MIN = 1;        // indica o número mínimo de itens no vetor
 const int MAX = 100;      // indica o número máximo de itens no vetor
 
-
-void swap(float *a, float *b, int j) 
-{ 
-float temp = a[j]; 
-a[j] = a[j+1]; 
-a[j+1] = temp;
-
-temp = b[j]; 
-b[j] = b[j+1]; 
-b[j+1] = temp;
-}  
+const int INF = INT_MIN;
+const int SUP = INT_MAX;
 
 
-// https://www.edureka.co/blog/sorting-algorithms-in-c/
-void ordernar_freq_bubble(float* vetor[2], int n){
-	int i, j; 
-	for (i = 0; i < n-1; i++)       
-		for (j = 0; j < n-i-1; j++)
-		 	if ((vetor[1][j] < vetor[1][j+1])&&( vetor[1][j+1]!=NULO))
-				swap(vetor[0], vetor[1], j); 
-}
+struct Intervalo{
+	int comeca_em;
+	int tamanho;
+};
 
-preencher_freq(float* vetor, int n, float* freq[2]){
-	int i, j;
+// imprime um vetor de ints
 
-	for (i = 0; i < n ; i++){
-		freq[0][i]=NULO;  // guarda valor
-		freq[1][i]=NULO;  // guarda frequencia
-  }
-	
-	for (i = 0; i < n ; i++){
-		for (j = 0; j < n; j++){
-			if (freq[0][j]==NULO){
-				// não foi encontrado antes
-				freq[0][j]=vetor[i];
-				freq[1][j]=1;
-				break;
-				
-			}else if (freq[0][j]==vetor[i]){
-				// já foi encontrado
-				freq[1][j]++;
-				break;
-
-			}
-		}
-		
-	}
-}
-
-
-
-void imprime_vetor(float* vetor, int n){
+void imprime_vetor(int* vetor, int n){
 	int i;
 
 	printf("[");	
 	for(i=0;i<n;i++){
-		printf("%f", vetor[i]);
+		printf("%d", vetor[i]);
 		if (i<n-1)
 			printf(", ");
 	}
@@ -71,26 +29,22 @@ void imprime_vetor(float* vetor, int n){
 	
 }
 
-void imprime_freq(float* freq[2], int n){
+// imprime um intervalo de um vetor de inteiros
+
+void imprime_vetor_intervalo(int* vetor, struct Intervalo intervalo){
 	int i;
 
-	printf("\nO vetor [(valor,frequencia), ... ] (ordenado por maior frequencia) :\n");	
-
 	printf("[");	
-	for(i=0;i<n;i++){
-		if (freq[0][i]==NULO){
-			// slot não utilizado
-			break;
-		}
-		
-		printf("(%f,%.0f)", freq[0][i], freq[1][i]);
-		if (i<n-1)
-			if (freq[0][i+1]!=NULO)
-				printf(", ");
+	for(i=intervalo.comeca_em;i<(intervalo.comeca_em + intervalo.tamanho);i++){
+		printf("%d", vetor[i]);
+		if (i<(intervalo.comeca_em+intervalo.tamanho-1))
+			printf(", ");
 	}
 	printf("]\n");
 	
 }
+
+// entra o tamanho de um vetor, limitado por [min - max]
 
 void entrar_tamanho(int* n, int min, int max){
 	do{
@@ -110,51 +64,132 @@ void entrar_tamanho(int* n, int min, int max){
 	
 }
 
-void entrar_vetor(float* vetor, int n, float inf, float sup){
+// entra os valoros inteiros de um vetor, cada valor limitado por [inf - sup]
+
+void entrar_vetor(int* vetor, int n, int inf, int sup){
 	int i; 
 	
-	printf("\nEntrar %d valores dentro da faixa [%.4f - %.4f] \n", n, inf, sup);
+	printf("\nEntrar %d valores dentro da faixa [%d - %d] \n", n, inf, sup);
 
 	for(i=0;i<n;i++){
 		do{
-			printf("\nDigite o valor no indice %i [%.4f - %.4f]: ", i, inf, sup);
-			scanf("%f",&vetor[i]);  // guarda valor
+			printf("\nDigite o valor no indice %i : ", i, inf, sup);
+			scanf("%d",&vetor[i]);  // guarda valor
 			
 			if ((vetor[i]<INF)||(vetor[i]>SUP))
-				printf("\nO valor %.4f esta fora da faixa [%.4f - %.4f]\nConsidere a possibilidade de normalizar seus valores. \n", vetor[i], inf, sup);
+				printf("\nO valor %d esta fora da faixa [%d - %d]\n", vetor[i], inf, sup);
 		}while ((vetor[i]<inf)||(vetor[i]>sup));
 
 	}
 	
 }
 
+// recebe dois vetores
+// o menor deve vir primeiro, mas ambos podem ter o mesmo tamanho
+// retorna o uma struct com o intervalo e o tamanho da maior sequência em comum
+
+struct Intervalo encontra_seq_comum(int* vetor_menor, int n_menor, int* vetor_maior, int n_maior){
+	struct Intervalo i_maior, i_atual;
+	
+	int i_base,i,j;
+	
+	i_maior.comeca_em=0;
+	i_maior.tamanho=0;
+
+	i_atual.comeca_em=0;
+	i_atual.tamanho=0;
+
+	i_base=0;
+	while((i_base<n_menor)&&(i_maior.tamanho<n_menor)){
+		i=i_base;
+		j=0;
+
+		i_atual.comeca_em=i_base;
+
+		while((i<n_menor)&&(j<n_maior)){
+
+			if (vetor_menor[i]==vetor_maior[j]){
+				i_atual.tamanho++;
+				i++;
+				j++;
+				
+			}else{
+				i_atual.tamanho=0;
+
+				if (i!=i_base){
+					i=i_base;
+				}else{
+					j++;
+				}
+			}
+			
+			if (i_maior.tamanho<i_atual.tamanho){
+				i_maior.comeca_em = i_atual.comeca_em;
+				i_maior.tamanho = i_atual.tamanho;
+			}
+		}
+		
+		i_base++;
+	}
+	
+	return i_maior;
+		
+}
+
+
 
 int main()
 {
-	int n;
-	float* vetor;
-	float* freq[2];
+	int i, m, n;
+	int* vetor_m;
+	int* vetor_n;
+
+	struct Intervalo indices_seq;
+
+	// popular vetor M
+		
+	printf("vetor M");
+	entrar_tamanho(&m, MIN, MAX);
+
+	vetor_m = malloc( m * sizeof(int));
 	
+	printf("\nvetor M");
+	entrar_vetor(vetor_m, m, INF, SUP);
+
+
+	// popular vetor N
+		
+	printf("\nvetor N");
 	entrar_tamanho(&n, MIN, MAX);
-	
-	vetor = malloc( n * sizeof(int));
-	freq[0] = malloc( n * sizeof(int));
-	freq[1] = malloc( n * sizeof(int));
-	
-	entrar_vetor(vetor, n, INF, SUP);
-	
-	printf("\nO vetor original eh:\n");
-	imprime_vetor(vetor, n);
-	
-	preencher_freq(vetor, n, freq);
 
-	ordernar_freq_bubble(freq, n);
+	vetor_n = malloc( n * sizeof(int));
 
-	imprime_freq(freq, n);
+	printf("\nvetor N");
+	entrar_vetor(vetor_n, n, INF, SUP);
 
-	free (vetor);
-	free (freq[0]);
-	free (freq[1]);
+	// imprime os vetores para conferencia
+	printf("\nvetor M");
+	imprime_vetor(vetor_m, m);
+
+	printf("\nvetor N");
+	imprime_vetor(vetor_n, n);
+
+	// encontra maior sequencia em comum
+	printf("\nmaior sequencia em comum: ");
+
+	if (m>n){
+		indices_seq = encontra_seq_comum(vetor_n, n, vetor_m, m);
+		imprime_vetor_intervalo(vetor_n, indices_seq);
+		
+	}else{
+		indices_seq = encontra_seq_comum(vetor_m, m, vetor_n, n);
+		imprime_vetor_intervalo(vetor_m, indices_seq);
+		
+	}
+	
+
+	free(vetor_m);
+	free(vetor_n);
 
   return 0;   
     

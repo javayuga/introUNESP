@@ -1,50 +1,35 @@
 #include<stdlib.h>
 #include<stdio.h> 
+#include<stdbool.h> 
 
 const float NULO = -999;  // indica que um valor ainda não foi inicializado
 const int MIN = 1;        // indica o número mínimo de itens no vetor
 const int MAX = 100;      // indica o número máximo de itens no vetor
 
-const int INF = INT_MIN;
+const int INF = 0;
 const int SUP = INT_MAX;
 
 
-struct Intervalo{
-	int comeca_em;
-	int tamanho;
-};
-
-// imprime um vetor de inteiros
+// imprime um vetor de ints, interrompe caso valor NULO encontrado
 
 void imprime_vetor(int* vetor, int n){
 	int i;
 
 	printf("[");	
 	for(i=0;i<n;i++){
+		if (vetor[i]==NULO)
+			break;
+
 		printf("%d", vetor[i]);
-		if (i<n-1)
+		if ((i<n-1)&&(vetor[i+1]!=NULO))
 			printf(", ");
 	}
 	printf("]\n");
 	
 }
 
-// imprime um intervalo de um vetor de inteiros
 
-void imprime_vetor_intervalo(int* vetor, struct Intervalo intervalo){
-	int i;
-
-	printf("[");	
-	for(i=intervalo.comeca_em;i<(intervalo.comeca_em + intervalo.tamanho);i++){
-		printf("%d", vetor[i]);
-		if (i<(intervalo.comeca_em+intervalo.tamanho-1))
-			printf(", ");
-	}
-	printf("]\n");
-	
-}
-
-// entra o tamanho de um vetor, com valor limitado por [min - max]
+// entra o tamanho de um vetor, limitado por [min - max]
 
 void entrar_tamanho(int* n, int min, int max){
 	do{
@@ -64,7 +49,7 @@ void entrar_tamanho(int* n, int min, int max){
 	
 }
 
-// entra os valaros de um vetor, cada valor limitado por [inf - sup]
+// entra os valoros inteiros de um vetor, cada valor limitado por [inf - sup]
 
 void entrar_vetor(int* vetor, int n, int inf, int sup){
 	int i; 
@@ -84,56 +69,73 @@ void entrar_vetor(int* vetor, int n, int inf, int sup){
 	
 }
 
-// recebe dois vetores
-// o menor deve vir primeiro, mas ambos podem ter o mesmo tamanho
-// retorna o uma struct com o intervalo e o tamanho da maior sequência em comum
+// ordena um vetor de inteiros, usando bubble sort
+// https://www.edureka.co/blog/sorting-algorithms-in-c/
 
-struct Intervalo encontra_seq_comum(int* vetor_menor, int n_menor, int* vetor_maior, int n_maior){
-	struct Intervalo i_maior, i_atual;
-	
-	int i_base,i,j;
-	
-	i_maior.comeca_em=0;
-	i_maior.tamanho=0;
 
-	i_atual.comeca_em=0;
-	i_atual.tamanho=0;
+void orderna_bubble(int* vetor, int n){
+	int i, j; 
+	int temp;
 
-	i_base=0;
-	while((i_base<n_menor)&&(i_maior.tamanho<n_menor)){
-		i=i_base;
-		j=0;
-
-		i_atual.comeca_em=i_base;
-
-		while((i<n_menor)&&(j<n_maior)){
-
-			if (vetor_menor[i]==vetor_maior[j]){
-				i_atual.tamanho++;
-				i++;
-				j++;
-				
-			}else{
-				i_atual.tamanho=0;
-
-				if (i!=i_base){
-					i=i_base;
-				}else{
-					j++;
-				}
+	for (i = 0; i < n-1; i++)       
+		for (j = 0; j < n-i-1; j++)
+		 	if ( (vetor[j] > vetor[j+1]) && (vetor[j]!=NULO) && (vetor[j+1]!=NULO)){
+		 		temp = vetor[j];
+				vetor[j]=vetor[j+1];
+				vetor[j+1]=temp; 	
 			}
-			
-			if (i_maior.tamanho<i_atual.tamanho){
-				i_maior.comeca_em = i_atual.comeca_em;
-				i_maior.tamanho = i_atual.tamanho;
-			}
-		}
-		
-		i_base++;
+}
+
+
+// inicializa vetor de ocorrências com valores NULO
+
+int* inicializa_ocorrencias(int n){
+	int i;
+
+	int* ocorrencias = malloc( n * sizeof(int));
+	
+	for(i=0;i<n;i++){
+		ocorrencias[i]=NULO;
 	}
 	
-	return i_maior;
-		
+	return ocorrencias;
+}
+	
+
+// checa existência de valor no vetor de ocorrencias, retorna true se existir
+
+bool checa_existencia(int valor, int* ocorrencias, int n){
+	int i;
+	
+	bool existe = false;
+	
+	for(i=0;i<n;i++){
+		if (ocorrencias[i]==NULO){
+			break;
+		}
+		if (valor==ocorrencias[i]){
+			existe = true;
+			break;
+		}
+	}
+	
+	return existe;
+}
+
+// guarda valores de dois vetores num vetor de ocorrências
+
+void guarda_ocorrencias(int* vetor_m, int m, int* ocorrencias, int n){
+	int proximo, i;
+	
+	proximo=0;
+	
+	for(i=0; i<m; i++){
+		if (!checa_existencia(vetor_m[i], ocorrencias, n)){
+			ocorrencias[proximo]=vetor_m[i];
+			proximo++;
+		}
+	}
+	
 }
 
 
@@ -143,8 +145,7 @@ int main()
 	int i, m, n;
 	int* vetor_m;
 	int* vetor_n;
-
-	struct Intervalo indices_seq;
+	int* ocorrencias;
 
 	// popular vetor M
 		
@@ -167,6 +168,7 @@ int main()
 	printf("\nvetor N");
 	entrar_vetor(vetor_n, n, INF, SUP);
 
+
 	// imprime os vetores para conferencia
 	printf("\nvetor M");
 	imprime_vetor(vetor_m, m);
@@ -174,22 +176,22 @@ int main()
 	printf("\nvetor N");
 	imprime_vetor(vetor_n, n);
 
-	// encontra maior sequencia em comum
-	printf("\nmaior sequencia em comum: ");
 
-	if (m>n){
-		indices_seq = encontra_seq_comum(vetor_n, n, vetor_m, m);
-		imprime_vetor_intervalo(vetor_n, indices_seq);
-		
-	}else{
-		indices_seq = encontra_seq_comum(vetor_m, m, vetor_n, n);
-		imprime_vetor_intervalo(vetor_m, indices_seq);
-		
-	}
+	// imprime lista de valores distintos ordenados
+	printf("\nvalores distintos ordenados: ");
 	
+	ocorrencias = inicializa_ocorrencias(m+n);
+	
+	guarda_ocorrencias(vetor_m, m, ocorrencias, m+n);
+	guarda_ocorrencias(vetor_n, n, ocorrencias, m+n);
+	
+	//orderna_bubble(ocorrencias, m+n);
+	
+	imprime_vetor(ocorrencias, m+n);
 
 	free(vetor_m);
 	free(vetor_n);
+	free(ocorrencias);
 
   return 0;   
     
