@@ -18,7 +18,7 @@ int dia,mes,mesmax=12,ano,diamax,anobi;
 }
 
 int proximomes(mes){
-  int proximoano(ano)                   // CONFERIR INDENTA«√O
+  int proximoano(ano)                   // CONFERIR INDENTA√á√ÉO
   {
  
   ano=ano+1;
