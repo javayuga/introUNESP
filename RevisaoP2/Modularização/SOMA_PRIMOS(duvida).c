@@ -22,15 +22,15 @@ int main()
   int i, numero, soma;
   soma=0;  
  
-    printf("Digite um numero inteiro, real e positivo: ");
-    scanf("%d", &numero);
+  printf("Digite um numero inteiro, real e positivo: ");
+  scanf("%d", &numero);
+  
+  printf("%d", numero);
     
-    for (i=0;i<numero;i++) {
-      if(determinar_primo(numero))
+  for (i=1;i<=numero;i++) {
+     if((i%2 !=0) && (determinar_primo(numero) ))
         soma+=numero;
-  
   }
-  
      
   system("PAUSE");
   return 0;   

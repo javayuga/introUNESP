@@ -1,0 +1,99 @@
+/*
+--------------VETORES----------------------
+
+  Por analogia, os vetores são como uma
+prateleira de livros: eles podem armaze-
+nar inúmeros dados computacionais (desde
+que sejam do mesmo tipo).
+  Quando declaramos um vetor, estamos re-
+servando um bloco sequencial de memória 
+para armazenar dados. Por exemplo:
+     
+       \ 7 \ 9 \ 85 \ 36 \ 17 \
+       
+         0    1    2    3    4
+         
+  O vetor acima possui 5 elementos, todos 
+do tipo inteiro (int), e podemos chamá-lo
+de vetor números, pois é um nome que se 
+relaciona com o tipo de dados que ele arma-
+zena.
+  A vantagem de utilizar um vetor está na 
+facilidade de trabalhar com uma referencia-
+ção capaz de guardar 100 dados, ao invés de 
+100 variáveis que guardam 1 dado.
+
+----------- CRIANDO UM VETOR---------------
+
+  1. A primeira coisa a se fazer quando de-
+  claramos um vetor é identificar qual tipo
+  de dado estamos armazenando (int, char,
+  float...);
+  2. Depois, devemos decidir o nome do vetor,
+  o qual deve estar relacionado com os seus
+  dados;
+  3. Assim, devemos falar a capacidade máxima
+  de dados que o vetor irá suportar.
+
+
+  int main()
+  {
+    tipo + nome [qntd de elementos];    
+  }
+
+
+---------- MANIPULAÇÃO DE VETORES ----------
+
+  Tendo o vetor abaixo como exemplo:
+         \ A \ B \ C \ D \ E \
+  Sabemos que ele tem 5 elementos. Mas, se eu 
+quiser acessar apenas o elemento C (2da casa),
+como faria?
+  O índice dos vetores começa em 0 e vai até 
+n-1 (sendo n o tamanho do vetor). Dessa forma,
+conhecendo o índice do elemento que desejo, adoto
+o seguinte:
+            printf("%d", numeros[2]);
+  Assim, "chamei" o elemento que preenche o corres-
+pondente de 2.
+
+                 letras [0] = 'A';
+                 letras [1] = 'B';
+                 letras [2] = 'C';
+                 letras [3] = 'D';
+                 letras [4] = 'E';
+                 
+--------- OPERAÇÕES COM VETORES -----------------
+
+  Apesar de ter uma notação diferente, manipular um ele-
+mento específico de um vetor não é muito diferente de manipu-
+lar uma variável. Por exemplo:
+     
+ int main()
+ { 
+   int numeros[4];
+   int x=0;
+   
+   numeros[0] = 70;
+   numeros[1] = 95;
+   numeros[2] = 48;
+   numeros[3] = 76;
+   
+   IMPRESSÃO
+   printf("%d", numeros[2]);
+   
+   OPERAÇÃO
+   x= numeros[1] + numeros[2];
+   
+   ATRIBUIÇÃO
+   x= numeros[3];
+   
+   CONDIÇÃO
+   if(x<numeros[2])
+     
+   system("PAUSE");
+   return 0;    
+     
+ }
+      
+  */
