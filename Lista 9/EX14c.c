@@ -22,12 +22,13 @@ int main()
      for (j=0; j<colunas; j++) {
          printf("Insira elemento m(%dx%d): ", i+1, j+1);
          scanf("%f", &m[i][j]);
-     }    
-     if((i==j) && (m[i][j]!=1) )
-        identidade=0;
-     else if ((i!=j) && (m[i][j]!=0) )
-        identidade=0;
+         if((i==j) && (m[i][j]!=1) )
+            identidade=0;
+         if((i!=j) && (m[i][j]!=0) )
+            identidade=0;
+     }       
   }
+  
   printf("\nA sua matriz eh: ");
   printf("\n");
   
@@ -37,8 +38,8 @@ int main()
          printf("%.2f ", m[i][j]);   
      printf("|\n");    
   } 
-  if (identidade==1)
-     printf("E ela eh identidade...\n\n");
+  if (identidade == 1) 
+     printf("E ela eh identidade...\n\n"); // ela é identidade se a diag principal eh 1 e o resto 0
   else
      printf("E ela nao eh identidade...\n\n");
    
