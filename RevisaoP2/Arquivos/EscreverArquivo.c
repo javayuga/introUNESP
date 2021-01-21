@@ -18,10 +18,7 @@ int main()
   
   
   fclose(meuArquivo);
-  system("PAUSE");
-  return 0;        
-
- 
+         
   system("PAUSE");
   return 0;   
     

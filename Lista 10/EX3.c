@@ -9,7 +9,7 @@ typedef struct
   int numero;
   int telefone;
   float salario;
-  char sexo[10];
+  char sexo;
   char cargo[20];
   char civil[20];
   
@@ -18,7 +18,7 @@ typedef struct
 int main()
 {
   REGISTRO cadastro[2];
-  int i, maioridade=0;
+  int i, maioridade=0, rg, encontrei=0;
   char lixo;
   
   printf("              CADASTRO DE FUNCIONARIOS\n\n");
@@ -35,7 +35,7 @@ int main()
      
      printf("Sexo(F para feminino e M para masculino): ");
      fflush(stdin);
-     gets(cadastro[i].sexo);
+     scanf("%c", &cadastro[i].sexo);
      
      printf("CPF (tudo junto, sem espacos): ");
      scanf("%d", &cadastro[i].CPF);
@@ -70,11 +70,6 @@ int main()
      if (maioridade == cadastro[i].idade) 
         printf("\n Codigo: %d", cadastro[i].numero);
   }
- /* printf("\n O(s) codigo(s) do(s) funcionario(s) masculinos: "); 
-  for(i=0;i<2;i++) { 
-     if (cadastro[i].sexo == 'M') 
-        printf("\n Codigo: %d", cadastro[i].numero);
-  } */
   
   printf("\n\n O(s) codigo(s) do(s) funcionario(s) com salario maior que RS1000,00: "); 
   for(i=0;i<2;i++) {
@@ -82,9 +77,25 @@ int main()
         printf("\n Codigo: %d", cadastro[i].numero);
   }
   
+  printf("\n\n O(s) codigo(s) do(s) funcionario(s) masculinos: "); 
+  for(i=0;i<2;i++) { 
+     if (cadastro[i].sexo == 'M') 
+        printf("\n Codigo: %d", cadastro[i].numero);
+  } 
   
+  printf("\n\nDigite o RG para a busca de um usuario (tudo junto): ");
+  scanf("%d", &rg);
   
-  printf("\n\n");
+  for(i=0;i<2;i++) { 
+     if (rg == cadastro[i].RG) {
+        encontrei=1;
+        printf("\nCodigo: %d", cadastro[i].numero);
+        break;
+     }
+  } 
+  if(encontrei==0)
+     printf("Esse RG nao consta no sistema...\n\n");
+  
   
   system("PAUSE");
   return 0;   
