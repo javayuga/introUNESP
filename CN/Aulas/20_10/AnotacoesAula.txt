@@ -1,0 +1,134 @@
+
+EXERCÍCIO 1: BASKARA
+
+Faça um programa que calcula as raízes da equação
+ax^2+bx+c=0 através da fórmula de báskara.
+(a, b e c são inseridos pelo usuário, usando a função
+ input)
+
+   if
+    -> primeiro deve calcular o delta pra tomar a decisão
+   sobre o delta
+   else
+       -> se delta<0, fprintf (essa eq não tem raiz real)
+       -> se delta=0, fprintf (essa eq tem uma raiz real)
+       -> se não, fprintf (essa eq tem duas raizes reais)
+   end
+
+x1 = (-b + sqrt delta)/ (2a)
+x2 = (-b - sqrt delta)/ (2a)
+
+------------------------------------Código------------------------------------------
+
+a = input('Informe a ');
+b = input('Informe b ');
+c = input('Informe c ');
+
+delta = b^2 - 4*a*c;
+
+if delta < 0 
+ fprintf('%5.2fx^2+%5.2fx+%5.2f=0 não possui raiz real', a,b,c);
+else
+ x1=(-b+sqrt(delta))/(2*a);
+ x2=(-b-sqrt(delta))/(2*a);
+ if delta==0
+   fprintf('%5.2fx^2+%5.2fx+%5.2f=0 possui %5.2f como raiz real', a,b,c,x1);
+ else
+   fprintf('%5.2fx^2+%5.2fx+%5.2f=0 possui %5.2f e %5.2f como raizes reais', a,b,c,x1,x2);
+ end
+end
+
+--------------------------Pra plotar o gráfico:----------------------------------------
+
+-> definir um limite inferior, superior e os espaçamentos entre pontos
+
+inf = input ('defina o inf: ');
+sup = input ('defina o sup: ');
+pass = input ('defina os passos entre pontos: ');
+
+x = inf:pass:sup; 
+y = a*x.^2+b*x+c;  
+plot(x,y,'r-'); 
+
+
+
+
+EXERCÍCIO 2: NÚMEROS PRIMOS
+
+Implemente uma função denominada primo que retorna 1 se é primo e 0 se par.
+
+O NOME DA FUNÇÃO DEVE SER O MESMO NOME DO ARQUIVO!!!!!
+RODAMOS A FUNÇÃO POR BAIXO (NA JANELA DE COMANDO)!!!!!
+NA FRENTE DE function COLOCAMOS A VARIÁVEL QUE RETORNA f
+
+Começa com o contador = 0
+-> se n menor igual que 1, retorno = 0
+-> se não, contador = 0
+   %verificar se existe algum divisor entre 2 até n-1
+   %se houver, contar
+   %mod(n,?)==0 .... significa que deve contar mais um no contador  mod=vê se um número é divisível por outro
+
+   % decisão...
+   % se cont == 0, então é primo! Se não, é par.
+
+
+--------------------------------------Código------------------------------------------------------
+function retorno = primo(n)
+  
+  if n <= 1
+    retorno = 0
+  else
+    cont = 0
+    for i = 2:1:(n-1)
+      if mod(n,i)==0
+        cont = cont+1;
+      end
+    end
+    
+    if cont==0
+      retorno=1;
+    else
+      retorno=0;
+    end
+  end
+  
+  
+endfunction
+
+
+-------------------------------Gráfico de Pontos---------------------------------------------------
+
+-> programa que usa a função primo(n)
+-> definir limites sup e inf dados pelo usuário
+
+N = input('Defina N: ');
+x = 1:1:N;
+y = zeros(1,length(x));     %função que faz y começar nulo e comprimento de x (já definido)
+
+for i= 1:1:N
+  y(i) = primo(i);
+endfor
+
+plot(x,y,'ro')
+
+
+
+EXERCÍCIO 3: SOMA DE MATRIZES
+
+
+---------------------------------Código------------------------------------------------------
+function res = soma_matriz(A,B)
+  dimA = size(A);
+  dimB = size(B);
+  
+  if size(A)==size(B)
+  %if dimA==dimB
+  %if (dimA(1)==dimB(1)) && (dimA(2)==dimB(2))
+    res=A+B;
+  else 
+    %não é compativel
+    res=-1
+  end
+  
+  
+endfunction 
