@@ -88,25 +88,91 @@ fprintf('\nA média desses valores é %5.2f\n', media);
 fprintf('O desvio padrão desses valores é %5.2f\n', desvio);
 fprintf('O ceoef de variação desses valores é %5.2f\n', coef_var);
 
+%existe uma função do matlab que já calcula a média e o desvio padrão!
+
 EX5_L0-----------------------------------------------------------------------------------------------------------------
 %implementar uma função denominada primo p/ ver se os números inseridos são primos
 
-function retorno = primo(n)
+function retorno=primo(x)
   
-  if n <= 1
-    retorno = 0
-  else
-    cont = 0
-    for i = 2:1:(n-1)
-      if mod(n,i)==0
-        cont = cont+1;
-      end
-    end
-    
-    if cont==0
-      retorno=1;
-    else
-      retorno=0;
+  cont=0;
+  
+  for i=1:1:x
+    if 0==mod(x,i)
+      cont=cont+1;
     end
   end
+  
+  if cont==2
+    fprintf("O número %d é primo!\n", x); 
+  else
+    fprintf("O número %d não é primo!\n", x); 
+    end
+
+endfunction
+
+EX6_L0------------------------------------------------------------------------------------------------------------------
+% valores ímpares em n>= usando a função anterior!
+
+  n=input("Insira um número inteiro de elementos da sequência: ");
+  fprintf("De 0 a %d estes são primos:\n", n);
+  for i=1:1:x
+    if primo(i)==1
+      fprintf("%d ", i);
+    endif
+  endfor
+
+EX7_L0--------------------------------------------------------------------------------------------------------------------
+% fatoração em números primos
+
+n=input("Insira um valor que vc queira fatorar: ");
+cont=0;
+
+fprintf("\nValores do fatorial: ",cont);
+while n>1
+  if primo(cont)==1
+    if mod(n,cont)==0
+      fprintf("%d ",cont);
+      n=n/cont;
+      cont=0;
+    endif
+  endif
+  cont=cont+1;
+end
+fprintf("1\n");
+
+EX8_L0--------------------------------------------------------------------------------------------------------------------
+% F é o valor que o usuário entra, sendo ele a temperatura em fahrenheit
+% Depois, a função vai calcular a conversão em celsius, retornando a temperatura inserida na escala correta
+
+function retorno=far2cels(F)
+  C=(F-32)*(5/9);
+  retorno=C;
+end
+
+%quando o usuário coloca help+nome da função, aqueles % aparecem na tela de comando
+
+EX9_L0--------------------------------------------------------------------------------------------------------------------
+%dado um numero z, exiba todos os valores x, y, caso existam, tais que x^2+y^2=z^2.
+
+
+EX10_L0------------------------------------------------------------------------------------------------------------------
+
+function x=pi(u,v)
+##  Essa função realiza o produto interno de dois vetores
+##        do mesmo tamanho, através da formula:
+##        <u,v> = |u||v|·cosθ, sendo |v| = √(a2 + b2 )  
+##  Sendo u = Vetor A de n posições;
+##        v = Vetor B de n posições;
+##        PI = <u,v> = Produto interno.
+
+  if length(u)~=length(v)
+    disp(['Os vetores devem ter o mesmo tamanho.']);
+  elseif
+    apoio=length(u);
+  for i=1:1:apoio
+    apoio=apoio+(u(i)*v(i));
+  endfor
+  k=apoio;
+endif
 endfunction
