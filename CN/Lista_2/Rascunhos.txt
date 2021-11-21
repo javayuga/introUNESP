@@ -1,0 +1,8 @@
+Questão 1
+
+A partir da equação f(x) = 4cos(x) - e^(2x) = 0, obter
+a equação equivalente 4cos(x) = e^(2x). Assim, plotar o gráfico 
+no Octave chamando g(x) = 4cos(x) e h(x) = e^(2x).
+
+
+Observando o gráfico plotado pelo programa

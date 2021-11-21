@@ -1,0 +1,69 @@
+Questão 3
+
+Detalhes do enunciado:
+ -> Ponto flutuante de 4 dígitos;
+ -> Números exatamente representados (Erros relativo e absoluto individuais = 0)
+ -> Acumulador de precisão dupla (8 dígitos de pto flutuante)
+
+x = 0,7237 x 10^4
+y = 0,2145 x 10^-3
+z = 0,2585 x 10^1
+
+a) x-y-z
+
+Passo 1: Deixar todos os números com as mesmas casas decimais (no caso, com 10^4)
+
+x = 0,72370000000  x 10^4
+y = 0,00000002145  x 10^4
+z = 0,00025850000  x 10^4
+
+Passo 2: Subtrair os valores de x e y primeiro (chamando de u)
+
+                 x = 0,72370000000  x 10^4
+                 y = 0,00000002145  x 10^4
+ 
+                 u = 0,72369997415  x 10^4
+                       |__||__|   
+                u' = 0,72369997     x 10^4
+
+Passo 3: Agora, ajustar para 4 casas decimais:
+
+   u' = 0,72369997 x 10^4  --> u'=0,7236 
+
+   Porém, g = 0,00009997 x 10^4 = 0,9997 > 0,5. Por isso, devemos realizar um ajuste
+   na casa anterior ao g. Essa mudança gera um erro de operação.
+
+   u' = 0,7237 x 10^4
+
+Passo 4: Calcular o erro relativo de u'
+
+  ERx-y = ERop   (os erros relativos de x e y são 0, pois são exatamente representados)
+  ERx-y < 0,5 x 10^-3
+
+Passo 5: Subtrair z de u' (chamar de v)
+
+
+                   u' = 0,72370000  x 10^4
+                    z = 0,00025850  x 10^4
+
+                    v = 0,72344140  x 10^4
+
+Passo 6: Agora, ajustar para 4 casas decimais
+
+  v' = 0,7234  x 10^4
+  
+  Como g = 0,00004140 x 10^4 = 0,4140 < 0,5 , não existe a necessidade de ajustar o valor.
+
+  Ou seja, x-y-z = 0,7234 x 10^4
+
+Passo 7: Calcular o erro relativo da operação
+                   
+
+ 
+  
+
+
+  
+               
+ 
+
